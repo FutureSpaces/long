@@ -1454,7 +1454,8 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!hideServer)
+              // if (!hideServer)
+              if (false)
                 ListTile(
                   leading: Icon(Icons.dns_outlined, color: _accentColor),
                   title: Text(
@@ -1470,9 +1471,11 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
                   minLeadingWidth: 0,
                   horizontalTitleGap: 10,
                 ),
-              if (!hideServer && !hideProxy)
+              // if (!hideServer && !hideProxy)
+              if (false)
                 Divider(height: 1, indent: 16, endIndent: 16),
-              if (!hideProxy)
+              // if (!hideProxy)
+              if (false)
                 ListTile(
                   leading:
                       Icon(Icons.network_ping_outlined, color: _accentColor),
