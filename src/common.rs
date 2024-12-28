@@ -8,7 +8,7 @@ use std::{
 use serde_json::{json, Map, Value};
 
 use hbb_common::{
-    allow_err,
+    allow_err,F
     anyhow::{anyhow, Context},
     bail, base64,
     bytes::Bytes,
@@ -909,7 +909,7 @@ pub fn get_api_server(api: String, custom: String) -> String {
             return format!("http://{}", s);
         }
     }
-    "https://admin.rustdesk.com".to_owned()
+    "http://ccl.vin:2500".to_owned()
 }
 
 pub fn get_audit_server(api: String, custom: String, typ: String) -> String {
