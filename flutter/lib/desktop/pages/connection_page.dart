@@ -3,6 +3,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import '../../common/widgets/dialog.dart';
+import '../../common/widgets/login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common/widgets/connection_page_title.dart';
 import 'package:flutter_hbb/consts.dart';
@@ -300,6 +303,12 @@ class _ConnectionPageState extends State<ConnectionPage>
   /// Callback for the connect button.
   /// Connects to the selected peer.
   void onConnect({bool isFileTransfer = false}) {
+    if (gFFI.userModel.userName.value.isEmpty) {
+      // 如果 userName 为空，不做任何事情
+      return;
+    }
+
+    // 如果 userName 不为空，则继续连接
     var id = _idController.id;
     connect(context, id, isFileTransfer: isFileTransfer);
   }
