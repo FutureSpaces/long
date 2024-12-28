@@ -8,6 +8,33 @@ import 'package:flutter_hbb/models/state_model.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hbb/common.dart';
+import 'package:flutter_hbb/common/widgets/audio_input.dart';
+import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
+import 'package:flutter_hbb/consts.dart';
+import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
+import 'package:flutter_hbb/desktop/pages/desktop_tab_page.dart';
+import 'package:flutter_hbb/mobile/widgets/dialog.dart';
+import 'package:flutter_hbb/models/platform_model.dart';
+import 'package:flutter_hbb/models/server_model.dart';
+import 'package:flutter_hbb/models/state_model.dart';
+import 'package:flutter_hbb/plugin/manager.dart';
+import 'package:flutter_hbb/plugin/widgets/desktop_settings.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../common/widgets/dialog.dart';
+import '../../common/widgets/login.dart';
+
 import '../../common.dart';
 import '../../common/formatter/id_formatter.dart';
 import '../../models/peer_model.dart';
@@ -62,9 +89,11 @@ class _PeerCardState extends State<_PeerCard>
     final PeerTabModel peerTabModel = Provider.of(context);
     final peer = super.widget.peer;
     return GestureDetector(
-        onDoubleTap: peerTabModel.multiSelectionMode
-            ? null
-            : () => widget.connect(context, peer.id),
+        onDoubleTap: isWindows && gFFI.userModel.userName.value.isEmpty
+              ? null
+              : (peerTabModel.multiSelectionMode || peerTabModel.isShiftDown)
+                  ? null
+                  : () => widget.connect(context, peer.id),
         onTap: () {
           if (peerTabModel.multiSelectionMode) {
             peerTabModel.select(peer);
@@ -513,6 +542,17 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _connectAction(BuildContext context) {
+    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+		return MenuEntryButton<String>(
+			childBuilder: (TextStyle? style) => Text(
+			  '请登录后使用', // 提示用户登录
+			  style: style,
+			),
+			proc: () {},  // 空操作，什么也不做
+			padding: menuPadding,
+			dismissOnClicked: true,
+		);
+	}
     return _connectCommonAction(
       context,
       (peer.alias.isEmpty
@@ -523,6 +563,17 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _transferFileAction(BuildContext context) {
+    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+        return MenuEntryButton<String>(
+            childBuilder: (TextStyle? style) => Text(
+              '请登录后使用', // 提示用户登录
+              style: style,
+            ),
+            proc: () {},  // 空操作，什么也不做
+            padding: menuPadding,
+            dismissOnClicked: true,
+        );
+    }
     return _connectCommonAction(
       context,
       translate('Transfer file'),
@@ -532,6 +583,17 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _tcpTunnelingAction(BuildContext context) {
+    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+        return MenuEntryButton<String>(
+            childBuilder: (TextStyle? style) => Text(
+              '请登录后使用', // 提示用户登录
+              style: style,
+            ),
+            proc: () {},  // 空操作，什么也不做
+            padding: menuPadding,
+            dismissOnClicked: true,
+        );
+    }
     return _connectCommonAction(
       context,
       translate('TCP tunneling'),
