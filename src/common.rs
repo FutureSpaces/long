@@ -8,7 +8,7 @@ use std::{
 use serde_json::{json, Map, Value};
 
 use hbb_common::{
-    allow_err,F
+    allow_err,
     anyhow::{anyhow, Context},
     bail, base64,
     bytes::Bytes,
