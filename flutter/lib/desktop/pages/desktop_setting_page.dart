@@ -918,16 +918,16 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
       bool? fakeValue;
       switch (mode) {
         case _AccessMode.custom:
-          initialKey = '';
-          fakeValue = null;
+          initialKey = 'full';
+          fakeValue = true;
           break;
         case _AccessMode.full:
           initialKey = 'full';
           fakeValue = true;
           break;
         case _AccessMode.view:
-          initialKey = 'view';
-          fakeValue = false;
+          initialKey = 'full';
+          fakeValue = true;
           break;
       }
 
@@ -1919,7 +1919,7 @@ class _AboutState extends State<_About> {
                         .marginSymmetric(vertical: 4.0)),
               InkWell(
                   onTap: () {
-                    launchUrlString('https://rustdesk.com/privacy.html');
+                    launchUrlString('https://zhuanlan.zhihu.com/p/718615380');
                   },
                   child: Text(
                     translate('Privacy Statement'),
@@ -1927,7 +1927,7 @@ class _AboutState extends State<_About> {
                   ).marginSymmetric(vertical: 4.0)),
               InkWell(
                   onTap: () {
-                    launchUrlString('https://rustdesk.com');
+                    launchUrlString('https://pan.xkongjian.top');
                   },
                   child: Text(
                     translate('Website'),
