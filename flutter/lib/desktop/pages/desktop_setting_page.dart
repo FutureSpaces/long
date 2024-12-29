@@ -745,8 +745,8 @@ class _Safety extends StatefulWidget {
 class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  // bool locked = bind.mainIsInstalled();
-  bool locked = true;
+  bool locked = bind.mainIsInstalled();
+  // bool locked = true;
   final scrollController = ScrollController();
 
   @override
@@ -757,7 +757,7 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             _lock(locked, 'Unlock Security Settings', () {
-              locked = true;
+              locked = false;
               setState(() => {});
             }),
             preventMouseKeyBuilder(
