@@ -648,6 +648,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                   } else {
                     logOutConfirmDialog();
                   }
+                  HomePage.homeKey.currentState?.refreshPages();
                 },
               ),
             ],
