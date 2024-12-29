@@ -9,6 +9,30 @@ import '../../models/platform_model.dart';
 import '../../models/state_model.dart';
 import 'connection_page.dart';
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
+import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
+import 'package:flutter_hbb/models/state_model.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../common.dart';
+import '../../common/widgets/dialog.dart';
+import '../../common/widgets/login.dart';
+import '../../consts.dart';
+import '../../models/model.dart';
+import '../../models/platform_model.dart';
+import '../widgets/dialog.dart';
+import 'home_page.dart';
+import 'scan_page.dart';
+
 abstract class PageShape extends Widget {
   final String title = "";
   final Widget icon = Icon(null);
@@ -47,7 +71,8 @@ class HomePageState extends State<HomePage> {
 
   void initPages() {
     _pages.clear();
-    if (!bind.isIncomingOnly()) {
+    // if (!bind.isIncomingOnly()) {
+    if (!gFFI.userModel.userName.value.isEmpty) {
       _pages.add(ConnectionPage(
         appBarActions: [],
       ));
