@@ -648,7 +648,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                   } else {
                     logOutConfirmDialog();
                   }
-                  showLanguageSettings(gFFI.dialogManager);
+                  // showLanguageSettings(gFFI.dialogManager);
                 },
               ),
             ],
