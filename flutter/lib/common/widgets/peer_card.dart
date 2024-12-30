@@ -89,22 +89,37 @@ class _PeerCardState extends State<_PeerCard>
     final PeerTabModel peerTabModel = Provider.of(context);
     final peer = super.widget.peer;
     return GestureDetector(
-        onDoubleTap: isWindows && gFFI.userModel.userName.value.isEmpty
+        onDoubleTap: gFFI.userModel.userName.value.isEmpty
               ? null
-              : (peerTabModel.multiSelectionMode || peerTabModel.isShiftDown)
+              : (peerTabModel.multiSelectionMode)
                   ? null
                   : () => widget.connect(context, peer.id),
-        onTap: () {
-          if (peerTabModel.multiSelectionMode) {
-            peerTabModel.select(peer);
-          } else {
-            if (isMobile) {
-              widget.connect(context, peer.id);
-            } else {
-              peerTabModel.select(peer);
-            }
-          }
-        },
+        // onTap: () {
+        //   if (peerTabModel.multiSelectionMode) {
+        //     peerTabModel.select(peer);
+        //   } else {
+        //     if (isMobile) {
+        //       widget.connect(context, peer.id);
+        //     } else {
+        //       peerTabModel.select(peer);
+        //     }
+        //   }
+        // },
+	onTap: () {
+	  if (gFFI.userModel.userName.value.isEmpty) {
+	    // 这里什么也不做
+	  } else {
+	    if (peerTabModel.multiSelectionMode) {
+	      peerTabModel.select(peer);
+	    } else {
+	      if (isMobile) {
+		widget.connect(context, peer.id);
+	      } else {
+		peerTabModel.select(peer);
+	      }
+	    }
+	  }
+	},
         onLongPress: () => peerTabModel.select(peer),
         child: child);
   }
@@ -542,7 +557,7 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _connectAction(BuildContext context) {
-    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+    if (gFFI.userModel.userName.value.isEmpty) {
 		return MenuEntryButton<String>(
 			childBuilder: (TextStyle? style) => Text(
 			  '请登录后使用', // 提示用户登录
@@ -563,7 +578,7 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _transferFileAction(BuildContext context) {
-    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+    if (gFFI.userModel.userName.value.isEmpty) {
         return MenuEntryButton<String>(
             childBuilder: (TextStyle? style) => Text(
               '请登录后使用', // 提示用户登录
@@ -583,7 +598,7 @@ abstract class BasePeerCard extends StatelessWidget {
 
   @protected
   MenuEntryBase<String> _tcpTunnelingAction(BuildContext context) {
-    if (isWindows && gFFI.userModel.userName.value.isEmpty) {
+    if (gFFI.userModel.userName.value.isEmpty) {
         return MenuEntryButton<String>(
             childBuilder: (TextStyle? style) => Text(
               '请登录后使用', // 提示用户登录
