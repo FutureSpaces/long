@@ -864,7 +864,7 @@ void showLanguageSettings(OverlayDialogManager dialogManager) async {
     var lang = bind.mainGetLocalOption(key: kCommConfKeyLang);
     dialogManager.show((setState, close, context) {
       setLang(v) async {
-        if (lang != v) {
+        if (true) {
           setState(() {
             lang = v;
           });
