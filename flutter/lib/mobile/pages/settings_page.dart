@@ -648,9 +648,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
                   } else {
                     logOutConfirmDialog();
                   }
-                  Future.delayed(Duration(milliseconds: 200), () {
-                    HomePage.homeKey.currentState?.refreshPages();
-                  });
+                  showLanguageSettings(gFFI.dialogManager);
                 },
               ),
             ],
@@ -864,7 +862,7 @@ void showLanguageSettings(OverlayDialogManager dialogManager) async {
     var lang = bind.mainGetLocalOption(key: kCommConfKeyLang);
     dialogManager.show((setState, close, context) {
       setLang(v) async {
-        if (true) {
+        if (lang != v) {
           setState(() {
             lang = v;
           });
