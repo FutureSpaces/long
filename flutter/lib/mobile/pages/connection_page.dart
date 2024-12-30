@@ -10,6 +10,30 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_hbb/models/peer_model.dart';
 
+// import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+// import 'package:flutter/material.dart';
+import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
+import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
+// import 'package:flutter_hbb/models/state_model.dart';
+// import 'package:get/get.dart';
+// import 'package:provider/provider.dart';
+import 'package:settings_ui/settings_ui.dart';
+// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../common.dart';
+import '../../common/widgets/dialog.dart';
+import '../../common/widgets/login.dart';
+import '../../consts.dart';
+import '../../models/model.dart';
+import '../../models/platform_model.dart';
+import '../widgets/dialog.dart';
+import 'home_page.dart';
+import 'scan_page.dart';
+
 import '../../common.dart';
 import '../../common/widgets/peer_tab_page.dart';
 import '../../common/widgets/autocomplete.dart';
@@ -256,8 +280,13 @@ class _ConnectionPageState extends State<ConnectionPage> {
                           ),
                         ),
                         inputFormatters: [IDTextInputFormatter()],
+                        // onSubmitted: (_) {
+                        //   onConnect();
+                        // },
                         onSubmitted: (_) {
-                          onConnect();
+                          if (!gFFI.userModel.userName.value.isEmpty) {
+                            onConnect();
+                          }
                         },
                       );
                     },
@@ -341,7 +370,8 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 child: IconButton(
                   icon: const Icon(Icons.arrow_forward,
                       color: MyTheme.darkGray, size: 45),
-                  onPressed: onConnect,
+                  // onPressed: onConnect,
+                  onPressed: gFFI.userModel.userName.value.isEmpty ? null: onConnect,
                 ),
               ),
             ],
