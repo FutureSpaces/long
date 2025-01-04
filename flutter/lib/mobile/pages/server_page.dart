@@ -15,6 +15,48 @@ import '../../models/platform_model.dart';
 import '../../models/server_model.dart';
 import 'home_page.dart';
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:desktop_multi_window/desktop_multi_window.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hbb/common/formatter/id_formatter.dart';
+import 'package:flutter_hbb/desktop/widgets/refresh_wrapper.dart';
+import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
+import 'package:flutter_hbb/main.dart';
+import 'package:flutter_hbb/models/peer_model.dart';
+import 'package:flutter_hbb/models/state_model.dart';
+import 'package:flutter_hbb/utils/multi_window_manager.dart';
+import 'package:flutter_hbb/utils/platform_channel.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
+import 'package:window_manager/window_manager.dart';
+import 'package:window_size/window_size.dart' as window_size;
+
+import '../consts.dart';
+import 'common/widgets/overlay.dart';
+import 'mobile/pages/file_manager_page.dart';
+import 'mobile/pages/remote_page.dart';
+import 'desktop/pages/remote_page.dart' as desktop_remote;
+import 'desktop/pages/file_manager_page.dart' as desktop_file_manager;
+import 'package:flutter_hbb/desktop/widgets/remote_toolbar.dart';
+import 'models/model.dart';
+import 'models/platform_model.dart';
+
+import 'package:flutter_hbb/native/win32.dart'
+    if (dart.library.html) 'package:flutter_hbb/web/win32.dart';
+import 'package:flutter_hbb/native/common.dart'
+    if (dart.library.html) 'package:flutter_hbb/web/common.dart';
+
 class ServerPage extends StatefulWidget implements PageShape {
   @override
   final title = translate("Share Screen");
@@ -238,6 +280,7 @@ class ServiceNotRunningNotification extends StatelessWidget {
                     showScamWarning(context, serverModel);
                   } else {
                     serverModel.toggleService();
+                    bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
                   }
                 },
                 label: Text(translate("Start service")))
