@@ -48,6 +48,31 @@ import 'package:flutter_hbb/native/win32.dart'
 import 'package:flutter_hbb/native/common.dart'
     if (dart.library.html) 'package:flutter_hbb/web/common.dart';
 
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
+import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
+import 'package:flutter_hbb/models/state_model.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../common.dart';
+import '../../common/widgets/dialog.dart';
+import '../../common/widgets/login.dart';
+import '../../consts.dart';
+import '../../models/model.dart';
+import '../../models/platform_model.dart';
+import '../widgets/dialog.dart';
+import 'home_page.dart';
+import 'scan_page.dart';
+
 class ServerPage extends StatefulWidget implements PageShape {
   @override
   final title = translate("Share Screen");
@@ -247,9 +272,9 @@ void checkService() async {
 class ServiceNotRunningNotification extends StatelessWidget {
   ServiceNotRunningNotification({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final serverModel = Provider.of<ServerModel>(context);
+  // @override
+  // Widget build(BuildContext context) {
+  //   final serverModel = Provider.of<ServerModel>(context);
 
   //   return PaddingCard(
   //       title: translate("Service is not running"),
@@ -303,6 +328,7 @@ class ServiceNotRunningNotification extends StatelessWidget {
                   await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
                 }
               },
+              showServerSettings(gFFI.dialogManager);
               label: Text(translate("Start service")),
             ),
           ],
