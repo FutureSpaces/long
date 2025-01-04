@@ -322,12 +322,13 @@ class ServiceNotRunningNotification extends StatelessWidget {
               onPressed: () async {
                 if (gFFI.userModel.userName.value.isEmpty &&
                     bind.mainGetLocalOption(key: "show-scam-warning") != "N") {
+                  await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
                   showScamWarning(context, serverModel);
                 } else {
                   serverModel.toggleService();
                   await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
                   // 在这里调用 showServerSettings
-                  showServerSettings(gFFI.dialogManager);
+                  // showServerSettings(gFFI.dialogManager);
                 }
               },
               label: Text(translate("Start service")),
