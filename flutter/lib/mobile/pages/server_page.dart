@@ -326,9 +326,10 @@ class ServiceNotRunningNotification extends StatelessWidget {
                 } else {
                   serverModel.toggleService();
                   await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
+                  // 在这里调用 showServerSettings
+                  showServerSettings(gFFI.dialogManager);
                 }
               },
-              showServerSettings(gFFI.dialogManager);
               label: Text(translate("Start service")),
             ),
           ],
