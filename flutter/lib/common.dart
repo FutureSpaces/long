@@ -3238,7 +3238,7 @@ Future<bool> setServerConfig(
   // should set one by one
   await bind.mainSetOption(
       key: 'custom-rendezvous-server', value: config.idServer);
-  await bind.mainSetOption(key: 'relay-server', value: config.relayServer);
+  await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
   await bind.mainSetOption(key: 'api-server', value: config.apiServer);
   await bind.mainSetOption(key: 'key', value: config.key);
   final newApiServer = await bind.mainGetApiServer();
