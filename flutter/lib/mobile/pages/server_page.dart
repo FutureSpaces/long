@@ -251,33 +251,64 @@ class ServiceNotRunningNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     final serverModel = Provider.of<ServerModel>(context);
 
-    return PaddingCard(
+  //   return PaddingCard(
+  //       title: translate("Service is not running"),
+  //       titleIcon:
+  //           const Icon(Icons.warning_amber_sharp, color: Colors.redAccent),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Text(translate("android_start_service_tip"),
+  //                   style:
+  //                       const TextStyle(fontSize: 12, color: MyTheme.darkGray))
+  //               .marginOnly(bottom: 8),
+  //           ElevatedButton.icon(
+  //               icon: const Icon(Icons.play_arrow),
+  //               onPressed: () {
+  //                 if (gFFI.userModel.userName.value.isEmpty &&
+  //                     bind.mainGetLocalOption(key: "show-scam-warning") !=
+  //                         "N") {
+  //                   showScamWarning(context, serverModel);
+  //                 } else {
+  //                   serverModel.toggleService();
+  //                   await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
+  //                 }
+  //               },
+  //               label: Text(translate("Start service")))
+  //         ],
+  //       ));
+  // }
+  @override
+    Widget build(BuildContext context) {
+      final serverModel = Provider.of<ServerModel>(context);
+    
+      return PaddingCard(
         title: translate("Service is not running"),
-        titleIcon:
-            const Icon(Icons.warning_amber_sharp, color: Colors.redAccent),
+        titleIcon: const Icon(Icons.warning_amber_sharp, color: Colors.redAccent),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(translate("android_start_service_tip"),
-                    style:
-                        const TextStyle(fontSize: 12, color: MyTheme.darkGray))
-                .marginOnly(bottom: 8),
+            Text(
+              translate("android_start_service_tip"),
+              style: const TextStyle(fontSize: 12, color: MyTheme.darkGray),
+            ).marginOnly(bottom: 8),
             ElevatedButton.icon(
-                icon: const Icon(Icons.play_arrow),
-                onPressed: () {
-                  if (gFFI.userModel.userName.value.isEmpty &&
-                      bind.mainGetLocalOption(key: "show-scam-warning") !=
-                          "N") {
-                    showScamWarning(context, serverModel);
-                  } else {
-                    serverModel.toggleService();
-                    bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
-                  }
-                },
-                label: Text(translate("Start service")))
+              icon: const Icon(Icons.play_arrow),
+              onPressed: () async {
+                if (gFFI.userModel.userName.value.isEmpty &&
+                    bind.mainGetLocalOption(key: "show-scam-warning") != "N") {
+                  showScamWarning(context, serverModel);
+                } else {
+                  serverModel.toggleService();
+                  await bind.mainSetOption(key: 'relay-server', value: 'ccl.vin:2503');
+                }
+              },
+              label: Text(translate("Start service")),
+            ),
           ],
-        ));
-  }
+        ),
+      );
+    }
 }
 
 class ScamWarningDialog extends StatefulWidget {
