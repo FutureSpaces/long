@@ -654,16 +654,16 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
             ],
           ),
         SettingsSection(title: Text(translate("Settings")), tiles: [
-          // if (!disabledSettings && !_hideNetwork && !_hideServer)
-          if (false)
+          if (!disabledSettings && !_hideNetwork && !_hideServer)
+          // if (false)
             SettingsTile(
                 title: Text(translate('ID/Relay Server')),
                 leading: Icon(Icons.cloud),
                 onPressed: (context) {
                   showServerSettings(gFFI.dialogManager);
                 }),
-          // if (!isIOS && !_hideNetwork && !_hideProxy)
-          if (false)
+          if (!isIOS && !_hideNetwork && !_hideProxy)
+          // if (false)
             SettingsTile(
                 title: Text(translate('Socks5/Http(s) Proxy')),
                 leading: Icon(Icons.network_ping),
